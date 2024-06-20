@@ -1,0 +1,1 @@
+truncate table dtd_data.nebula_person_info
