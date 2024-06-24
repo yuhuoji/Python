@@ -53,8 +53,8 @@ def compare_csv_files(file1, file2):
 
 
 # 文件路径
-file1 = 'C:/Users/yuhuo/Documents/Code/pythonProject0619/src/0621matchColumnName/cyber_star_info.csv'
-file2 = 'C:/Users/yuhuo/Documents/Code/pythonProject0619/src/0621matchColumnName/cyber_star_info_backup.csv'
+file1 = 'C:/Users/yuhuo/Documents/Code/pythonProject0619/src/0624modify_column_value_by_mark_column/6.24updated_cyber_star_info.csv'
+file2 = 'C:/Users/yuhuo/Documents/Document/6.17-21/6.21/cyber_star_info.csv'
 
 # 比较两个 CSV 文件
 compare_csv_files(file1, file2)
