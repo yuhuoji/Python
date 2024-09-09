@@ -13,7 +13,7 @@ connection = pymysql.connect(
 )
 
 def generate_random_name():
-    letters = ''.join(random.choice(string.ascii_uppercase) for _ in range(3))
+    letters = ''.join(random.choice(string.digits) for _ in range(5))
     return f"Star {letters}"
 
 # 随机数据范围设置
@@ -31,9 +31,15 @@ def insert_random_data(num_records):
                 print("No MCN organizations found. Please ensure mcn_organ table has data.")
                 return
 
+            # 禁用外键约束
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
+
             # 使用 TRUNCATE TABLE 清空表并重置 AUTO_INCREMENT
             truncate_sql = "TRUNCATE TABLE cyber_star"
             cursor.execute(truncate_sql)
+
+            # 启用外键约束
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
             # 插入新的随机数据
             for _ in range(num_records):
@@ -52,10 +58,14 @@ def insert_random_data(num_records):
                     name, mcn_organ_id, remark, status, die_out_reason, mark))
 
         connection.commit()
+        print(f"Inserted {num_records} records into the database.")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         connection.close()
 
+# 设置要插入的数据量
+num_records_to_insert = 10000
+
 # 调用函数插入指定数量的随机数据
-insert_random_data(1000)
+insert_random_data(num_records_to_insert)

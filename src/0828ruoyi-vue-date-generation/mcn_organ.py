@@ -12,26 +12,39 @@ connection = pymysql.connect(
     cursorclass=pymysql.cursors.DictCursor
 )
 
+def generate_random_name():
+    letters = ''.join(random.choice(string.digits) for _ in range(3))
+    return f"MCN{letters}"
+
+def generate_random_url():
+    length = random.randint(3, 8)  # Random length between 3 and 8
+    random_string = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(length))
+    return f"www.{random_string}.com"
+
 # 随机数据范围设置
-names = ['Alpha Media', 'Beta Group', 'Gamma Entertainment', 'Delta Productions', 'Epsilon Studios']
-urls = ['www.alpha.com', 'www.beta.com', 'www.gamma.com', 'www.delta.com', 'www.epsilon.com']
 countries = ['USA', 'CHN', 'IND', 'GBR', 'FRA']
 categories = ['Tech', 'Media', 'Entertainment', 'Education', 'Finance']
 statuses = ['Active', 'Inactive', 'Pending', 'Closed']
-platforms = ['YouTube', 'Instagram', 'TikTok', 'Twitter', 'Facebook']
+platforms = ['Bilibili', 'Douyin', 'Facebook', 'Kuaishou', 'News', 'TikTok', 'Twitter', 'Weibo', 'YouTube', 'Zhihu']
 die_out_reasons = ['Low Performance', 'Regulation Issues', 'Market Changes', 'Financial Problems']
 
 def insert_random_data(num_records):
     try:
         with connection.cursor() as cursor:
+            # 禁用外键约束
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
+
             # 使用 TRUNCATE TABLE 清空表并重置 AUTO_INCREMENT
             truncate_sql = "TRUNCATE TABLE mcn_organ"
             cursor.execute(truncate_sql)
 
+            # 启用外键约束
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
+
             # 插入新的随机数据
             for _ in range(num_records):
-                name = random.choice(names)
-                url = random.choice(urls)
+                name = generate_random_name()
+                url = generate_random_url()
                 fans = random.randint(1000, 1000000)
                 country = random.choice(countries)
                 remark = 'This is a remark'
@@ -54,10 +67,14 @@ def insert_random_data(num_records):
                     platform, die_out_reason, mark))
 
         connection.commit()
+        print(f"Inserted {num_records} records into the database.")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         connection.close()
 
+# 设置要插入的数据量
+num_records_to_insert = 1000
+
 # 调用函数插入指定数量的随机数据
-insert_random_data(1000)
+insert_random_data(num_records_to_insert)
