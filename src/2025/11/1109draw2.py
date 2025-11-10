@@ -2,56 +2,80 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 定义数据
-demand_scale = np.arange(1, 1 + 0.5 * 13, 0.5)  # 从1开始，每个数据点增加0.5
-TEAVAR = [1.0, 0.9999412099905428, 0.9993829981604014, 0.997516361490025, 0.9950282920834728,
-          0.9922693861889008, 0.9885629353403604, 0.98355723081907, 0.9819309350827026,
-          0.9764772229997106, 0.9712995975589102, 0.9652948928840828, 0.9607555205608176]
-FFC2 = [1.0, 0.9941374258950718, 0.971907472021954, 0.9509013241208906, 0.9270248005533706,
-        0.8938486692265386, 0.8564351402944044, 0.8230903940781465, 0.7776877115192772,
-        0.7313604941755781, 0.6804633512660042, 0.6298334230805245, 0.5802716119912135]
-FFC1 = [1.0, 0.999995532658186, 0.9999734385344772, 0.9998605752214846, 0.9997032399434108,
-        0.9995099970872214, 0.9991514979248572, 0.9988133686213642, 0.9981963941895966,
-        0.9974603344160156, 0.9964857279733838, 0.994620728230685, 0.990870637499128]
-ARROW = [1.0, 1.0, 0.9999996056426906, 0.9999675440713376, 0.9998483013575906,
-         0.999680402021656, 0.9991019462840058, 0.9989988963228216, 0.9986036567844134,
-         0.998732010613775, 0.9977857247437328, 0.9957608806202042, 0.995990363786292]
-ARROW_NAIVE = [1.0, 1.0, 1.0, 0.9999956886538884, 0.9999891798973534,
-               0.9998998765441354, 0.9993934913999988, 0.9982723402802341,
-               0.9963243611808577, 0.9941142145099896, 0.99225624276778,
-               0.9884917855001344, 0.9867325786158412]
-ECMP = [0.9992740127236855, 0.9766380491514955, 0.946135075477781, 0.9055552636720602,
-        0.861093605173987, 0.819071952523397, 0.7761138058605727, 0.7373748586466317,
-        0.6789782576140263, 0.6324670622616447, 0.5763339787600908, 0.5165317935383624,
-        0.4613701933969543]
+demand_scale = np.arange(1, 1 + 0.5 * 11, 0.5)  # 从1开始，每个数据点增加0.5
+my_algorithm = [100, 99.989, 99.983, 100, 100, 99.999, 100, 99.587, 99.765, 99.775, 99.656]
+TEAVAR = [100, 99.994, 99.938, 99.751, 99.503, 99.227, 98.856, 98.355, 98.193, 97.647, 97.129]
+FFC2 = [100, 99.414, 97.191, 95.090, 92.702, 89.384, 85.643, 82.309, 77.768, 73.136, 68.046]
+FFC1 = [100, 99.999, 99.997, 99.986, 99.970, 99.950, 99.915, 99.881, 99.819, 99.746, 99.648]
+OPTR = [100, 100, 100, 99.999, 99.998, 99.989, 99.939, 99.827, 99.632, 99.411, 99.225]
+ECMP = [99.927, 97.663, 94.613, 90.555, 86.109, 81.907, 77.611, 73.737, 67.897, 63.246, 57.633]
 
 # 设置图片清晰度
 plt.rcParams['figure.dpi'] = 300
 
 # 创建画布
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 4))
 
 # 绘制各算法的可用性曲线
-plt.plot(demand_scale, TEAVAR, marker='o', color='magenta', label='TEAVAR', linewidth=2)
-plt.plot(demand_scale, FFC2, marker='^', color='gold', label='FFC2', linewidth=2)
+plt.plot(demand_scale, my_algorithm, marker='o', color='magenta', label='Telemark', linewidth=2)
 plt.plot(demand_scale, FFC1, marker='D', color='navy', label='FFC1', linewidth=2)
-plt.plot(demand_scale, ARROW, marker='*', color='teal', label='ARROW', linewidth=2)
-plt.plot(demand_scale, ARROW_NAIVE, marker='s', color='lightgreen', label='ARROW_NAIVE', linewidth=2)
+plt.plot(demand_scale, OPTR, marker='*', color='teal', label='OPTR', linewidth=2)
+plt.plot(demand_scale, TEAVAR, marker='s', color='lightgreen', label='TEAVAR', linewidth=2)
+plt.plot(demand_scale, FFC2, marker='^', color='gold', label='FFC2', linewidth=2)
 plt.plot(demand_scale, ECMP, marker='v', color='orange', label='ECMP', linewidth=2)
+
+
+# ----------------------------------------------------
+# ----------------------------------------------------
+# 箭头两点坐标
+x1, y1 = 1.0, 99.8    # <-- ***修改点***：将 x1 从 0.3 改为 1.0
+x2, y2 = 4.3, 99.8   # my_algorithm的99.927%对应点（x=4.0）
+plt.annotate(
+    '',               # 文本留空
+    xy=(x1, y1),      # 箭头端点1
+    xytext=(x2, y2),  # 箭头端点2
+    arrowprops=dict(
+        facecolor='blue',
+        edgecolor='blue',
+        linewidth=2,
+        arrowstyle='<->,head_length=0.5,head_width=0.5',
+        linestyle='-',
+        shrinkA=5,
+        shrinkB=5
+    )
+)
+
+# 2. 再用 plt.text 单独在箭头中点下方添加文字
+mid_x = (x1 + x2) / 2
+mid_y = (y1 + y2) / 2
+plt.text(
+    mid_x,                # 中点x坐标
+    mid_y - 0.02,         # 中点y坐标再往下偏移一点
+    '4x more traffic',  # <-- ***提示***：(4.3 - 1.0) = 3.3
+    ha='center',          # 水平居中
+    va='top',             # 垂直对齐（顶部在 mid_y-0.02 处）
+    fontsize=15,
+    color='blue'
+)
+# ----------------------------------------------------
+
+# ----------------------------------------------------
 
 # 设置坐标轴标签和标题
 plt.xlabel('Demand Scale')
-plt.ylabel('Bandwidth Availability')
-# plt.title('Bandwidth Availability Comparison Across Algorithms')
+plt.ylabel('Availability (%)')
+# plt.title('不同算法在需求规模下的可用性对比')
 
 # 调整坐标轴范围
-plt.xlim(0.95, 6.05)
-plt.ylim(0.45, 1.05)
+plt.xlim(1, 6)
+plt.ylim(98.95, 100.05)
+plt.xticks(np.arange(1, 7))  # 强制显示x轴坐标：1,2,3,4,5
 
 # 添加网格线（增强可读性）
 plt.grid(True, linestyle='--', alpha=0.7)
 
 # 显示图例
-plt.legend()
+plt.legend(loc='lower left', fontsize=10, framealpha=0.9)
 
 # 显示图形
 plt.show()

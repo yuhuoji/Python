@@ -1,5 +1,3 @@
-# 帮论文画图
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,6 +24,40 @@ plt.plot(demand_scale, TEAVAR, marker='s', color='lightgreen', label='TEAVAR', l
 plt.plot(demand_scale, FFC2, marker='^', color='gold', label='FFC2', linewidth=2)
 plt.plot(demand_scale, ECMP, marker='v', color='orange', label='ECMP', linewidth=2)
 
+# 箭头两点坐标
+x1, y1 = 1.5, 99.930    # ECMP的99.9%对应点
+x2, y2 = 4.0, 99.930   # my_algorithm的99.927%对应点（x=4.0）
+
+# ----------------------------------------------------
+plt.annotate(
+    '',               # 文本留空
+    xy=(x1, y1),      # 箭头端点1
+    xytext=(x2, y2),  # 箭头端点2
+    arrowprops=dict(
+        facecolor='blue',
+        edgecolor='blue',
+        linewidth=2,
+        arrowstyle='<->,head_length=0.5,head_width=0.5',
+        linestyle='-',
+        shrinkA=5,
+        shrinkB=5
+    )
+)
+
+# 2. 再用 plt.text 单独在箭头中点下方添加文字
+mid_x = (x1 + x2) / 2
+mid_y = (y1 + y2) / 2
+plt.text(
+    mid_x,                # 中点x坐标
+    mid_y - 0.02,         # 中点y坐标再往下偏移一点
+    '2.5x more traffic',   # 你的文本
+    ha='center',          # 水平居中
+    va='top',             # 垂直对齐（顶部在 mid_y-0.02 处）
+    fontsize=15,
+    color='blue'
+)
+
+# ----------------------------------------------------
 
 # 设置坐标轴标签和标题
 plt.xlabel('Demand Scale')
@@ -41,7 +73,7 @@ plt.xticks(np.arange(1, 6))  # 强制显示x轴坐标：1,2,3,4,5
 plt.grid(True, linestyle='--', alpha=0.7)
 
 # 显示图例
-plt.legend()
+plt.legend(loc='lower left', fontsize=10, framealpha=0.9)
 
 # 显示图形
 plt.show()
