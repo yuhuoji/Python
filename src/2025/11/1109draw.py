@@ -17,12 +17,12 @@ plt.rcParams['figure.dpi'] = 300
 plt.figure(figsize=(6, 4))
 
 # 绘制各算法的可用性曲线
-plt.plot(demand_scale, my_algorithm, marker='o', color='magenta', label='Telemark', linewidth=2)
-plt.plot(demand_scale, FFC1, marker='D', color='navy', label='FFC1', linewidth=2)
-plt.plot(demand_scale, OPTR, marker='*', color='teal', label='OPTR', linewidth=2)
-plt.plot(demand_scale, TEAVAR, marker='s', color='lightgreen', label='TEAVAR', linewidth=2)
-plt.plot(demand_scale, FFC2, marker='^', color='gold', label='FFC2', linewidth=2)
-plt.plot(demand_scale, ECMP, marker='v', color='orange', label='ECMP', linewidth=2)
+plt.plot(demand_scale, my_algorithm, marker='*', color='crimson', label='Telemark', linewidth=2)
+plt.plot(demand_scale, FFC1, marker='s', color='navy', label='FFC1', linewidth=2)
+plt.plot(demand_scale, OPTR, marker='D', color='teal', label='OPTR', linewidth=2)
+plt.plot(demand_scale, TEAVAR, marker='o', color='yellowgreen', label='TEAVAR', linewidth=2)
+plt.plot(demand_scale, FFC2, marker='v', color='khaki', label='FFC2', linewidth=2)
+plt.plot(demand_scale, ECMP, marker='^', color='orange', label='ECMP', linewidth=2)
 
 # 箭头两点坐标
 x1, y1 = 1.5, 99.930    # ECMP的99.9%对应点
