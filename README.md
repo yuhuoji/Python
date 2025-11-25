@@ -1,18 +1,25 @@
 # Python
 
 TempFilePath:
-` /Users/yuhuoji/Code/Python/src/leetcode`
+- windows `[Project Root]/todo`
+- macos ` [Project Root]/src`
 
-``
-LC$!velocityTool.deleteWhitespace("${question.frontendQuestionId}${velocityTool.camelCaseName(${question.titleSlug})}") 
-``
+Code FileName:
 
-``
+```
+LC$!velocityTool.deleteWhitespace("${question.frontendQuestionId}${velocityTool.camelCaseName(${question.titleSlug})}")
+```
+
+
+Code Template:
+
+```
 
 """
 ${question.frontendQuestionId} ${question.title}
 """
+from typing import *
 
 ${question.code}
 
-``
+```
