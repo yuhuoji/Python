@@ -1,3 +1,8 @@
+"""
+20251212 开题答辩ppt 图片
+大模型上下文窗口演进趋势 (2020-2025)
+"""
+
 import warnings
 import matplotlib.font_manager as font_manager
 import matplotlib.pyplot as plt

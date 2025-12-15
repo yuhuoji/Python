@@ -13,7 +13,24 @@ from src.leetcode.lc_utils import *
 #         self.val = val
 #         self.next = next
 class Solution:
+    # 迭代
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode], carry=0) -> Optional[ListNode]:
+        cur = dummy = ListNode()
+        carry = 0
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            cur.next = ListNode(carry % 10)
+            carry //= 10
+            cur = cur.next
+        return dummy.next
+
+    # 递归
+    def addTwoNumbers2(self, l1: Optional[ListNode], l2: Optional[ListNode], carry=0) -> Optional[ListNode]:
         if l1 is None and l2 is None:
             return ListNode(carry) if carry else None
         if l1 is None:

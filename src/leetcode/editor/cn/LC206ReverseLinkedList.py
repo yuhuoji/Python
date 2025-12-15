@@ -5,6 +5,8 @@ from typing import *
 from src.leetcode.lc_utils import *
 
 
+# REVIEW @date 2025-12-15 迭代
+
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for singly-linked list.
 # class ListNode:
@@ -13,7 +15,18 @@ from src.leetcode.lc_utils import *
 #         self.next = next
 
 class Solution:
+    # 递归
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return head
+        cur = head
+        new_head = self.reverseList(cur.next)
+        cur.next.next = cur
+        cur.next = None
+        return new_head
+
+    # 迭代
+    def reverseList1(self, head: Optional[ListNode]) -> Optional[ListNode]:
         pre = None
         cur = head
         while cur:
