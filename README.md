@@ -1,7 +1,7 @@
 # Python
 
 TempFilePath:
-- windows `[Project Root]/todo`
+- windows `[Project Root]/src`
 - macos ` [Project Root]/src`
 
 Code FileName:
@@ -9,6 +9,7 @@ Code FileName:
 ```
 LC$!velocityTool.deleteWhitespace("${question.frontendQuestionId}${velocityTool.camelCaseName(${question.titleSlug})}")
 ```
+eg: `LC1TwoSum.py`
 
 
 Code Template:
