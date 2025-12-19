@@ -8,7 +8,16 @@ from src.leetcode.lc_utils import *
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def rob1(self, nums: List[int]) -> int:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        f0 = f1 = 0
+        for i, x in enumerate(nums):
+            new_f = max(x + f0, f1)
+            f0 = f1
+            f1 = new_f
+        return f1
+
+    def rob3(self, nums: List[int]) -> int:
         n = len(nums)
         f = [0] * (n + 2)
         for i, x in enumerate(nums):
@@ -22,7 +31,7 @@ class Solution:
             f[i + 2] = max(x + f[i], f[i + 1])
         return f[n + 1]
 
-    def rob(self, nums: List[int]) -> int:
+    def rob1(self, nums: List[int]) -> int:
         n = len(nums)
         cache = [-1] * n
 
