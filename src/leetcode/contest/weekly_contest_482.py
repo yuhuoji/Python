@@ -1,16 +1,53 @@
 """
 @date 2025-12-28
 """
-
+from linecache import cache
 import array
 import bisect
 import collections
-
+from math import inf
 from typing import *
 from src.leetcode.lc_utils import *
 
 
 class Solution:
+    # 空间 O(1)
+    def maximumScore(self, nums: List[int]) -> int:
+        n = len(nums)
+        pre_sum = sum(nums)
+        suf_min = inf
+        ans = -inf
+        for i in range(n - 2, -1, -1):
+            pre_sum -= nums[i + 1]
+            suf_min = min(suf_min, nums[i + 1])
+            ans = max(ans, pre_sum - suf_min)
+        return ans
+
+    def maximumScore1(self, nums: List[int]) -> int:
+        n = len(nums)
+        suf_min = [0] * n
+        suf_min[-1] = nums[-1]
+        for i in range(n - 2, -1, -1):
+            suf_min[i] = min(suf_min[i + 1], nums[i + 1])
+
+        ans = -inf
+        pre_sum = 0
+        for i in range(n - 1):
+            pre_sum += nums[i]
+            ans = max(ans, pre_sum - suf_min[i])
+        return ans
+
+    def minimumCost(self, cost1: int, cost2: int, costBoth: int, need1: int, need2: int) -> int:
+        res1 = need1 * cost1 + need2 * cost2
+        res2 = max(need1, need2) * costBoth
+        if need1 < need2:
+            need1, need2 = need2, need1
+            cost1, cost2 = cost2, cost1
+        res3 = need2 * costBoth + (need1 - need2) * cost1
+        return min(res1, res2, res3)
+
+
+class Solution1:
     def maximumScore(self, nums: List[int]) -> int:
         n = len(nums)
         prefixSum = [0] * n
