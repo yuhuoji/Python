@@ -13,7 +13,7 @@ class Solution(object):
         :rtype: List[int]
         """
         idx = {}
-        for i , x in enumerate(nums):
+        for i, x in enumerate(nums):
             if target - x in idx:
                 return [idx[target - x], i]
             idx[x] = i
