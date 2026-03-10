@@ -10,6 +10,13 @@ from src.leetcode.lc_utils import *
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        f = [0] * n
+        for i in range(n):
+            f[i] = max(f[i - 1], 0) + nums[i]
+        return max(f)
+
+    def maxSubArray1(self, nums: List[int]) -> int:
         f = [0] * len(nums)
         f[0] = 0
         for i in range(len(nums)):
