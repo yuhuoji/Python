@@ -3,8 +3,9 @@
 """
 
 import math
+import sys
 
-"""
+"""input
 3
 50 25 30
 60 15 60 
@@ -21,7 +22,8 @@ import math
 80 7.5 60 
 20 100 90
 """
-"""
+
+"""output
 35.33 30.00 30.00
 80.00 9.17 60.00
 25.67 80.83 90.00
@@ -29,8 +31,6 @@ import math
 
 
 def main():
-    import sys
-
     lines = [line.strip() for line in sys.stdin.readlines() if line.strip()]
     ptr = 0
 
