@@ -1,0 +1,1 @@
+lines = [line for line in sys.stdin.read().splitlines() if line.strip()]

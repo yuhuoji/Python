@@ -41,5 +41,8 @@ class Solution:
 
 if __name__ == '__main__':
     solution = Solution()
-
+    m, n = 3, 7
+    f = [[1] * n] + [[1] + [0] * (n - 1) for _ in range(m - 1)]
+    for row in f:
+        print(*row)
     pass
