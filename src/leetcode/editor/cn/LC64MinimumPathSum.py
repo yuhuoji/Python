@@ -9,6 +9,15 @@ from src.leetcode.lc_utils import *
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        f = [[inf] * (n + 1)] + [([inf] + [0] * n) for _ in range(m)]  # 数组拼接 列表推导
+        f[0][1] = 0
+        for i in range(m):
+            for j in range(n):
+                f[i + 1][j + 1] = min(f[i][j + 1], f[i + 1][j]) + grid[i][j]
+        return f[m][n]
+
     def minPathSum3(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         f = [inf] * (n + 1)
@@ -29,7 +38,7 @@ class Solution:
         return f[m][n]
 
     # 使用负数索引
-    def minPathSum(self, grid: List[List[int]]) -> int:
+    def minPathSum4(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         f = [[inf] * (n + 1) for _ in range(m + 1)]
         f[0][-1] = 0  # 简便[0][0]特判
