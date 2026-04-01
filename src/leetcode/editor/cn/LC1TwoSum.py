@@ -7,11 +7,6 @@ from typing import *
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution(object):
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        """
-        :type nums
-        :type target: int
-        :rtype: List[int]
-        """
         idx = {}
         for i, x in enumerate(nums):
             if target - x in idx:

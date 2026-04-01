@@ -9,20 +9,20 @@ from src.leetcode.lc_utils import *
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
+        f = [[0] * (n + 1) for _ in range(m + 1)]
+        f[0][1] = 1
+        for i in range(m):
+            for j in range(n):
+                f[i + 1][j + 1] = f[i][j + 1] + f[i + 1][j]
+        return f[m][n]
+
+    def uniquePaths3(self, m: int, n: int) -> int:
         f = [0] * (n + 1)
         f[1] = 1
         for _ in range(m):
             for j in range(n):
                 f[j + 1] += f[j]
         return f[n]
-
-    def uniquePaths2(self, m: int, n: int) -> int:
-        f = [[0] * (n + 1) for _ in range(m + 1)]
-        f[0][1] = 1
-        for i in range(m):
-            for j in range(n):
-                f[i + 1][j + 1] = f[i + 1][j] + f[i][j + 1]
-        return f[m][n]
 
     def uniquePaths1(self, m: int, n: int) -> int:
         @cache
